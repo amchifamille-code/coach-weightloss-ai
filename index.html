@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14804a">
+<meta name="description" content="Coach WeightLoss AI — ton coach minceur personnel. Une application ASI.HÉLIOS.">
+<title>Coach WeightLoss AI</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;
+--bg:light-dark(#f6f8f6,#0b100d);--card:light-dark(#ffffff,#141b17);--ink:light-dark(#0e1411,#eef3ef);
+--mute:light-dark(#5b6a61,#9fb0a6);--line:light-dark(#e2e8e3,#24302a);--g:#14804a;--g2:light-dark(#e6f4ec,#163524);
+--gi:light-dark(#0f6b3d,#5fd197);--warn:light-dark(#9a5b00,#f3b25a);--wbg:light-dark(#fff5e6,#2a2011);--black:#0e1411}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Plus Jakarta Sans",system-ui,sans-serif;overflow-x:clip}
+main{max-width:560px;margin:0 auto;padding:0 16px 110px}
+h1{font-size:30px;line-height:1.1;margin:0 0 6px;text-wrap:balance}
+h2{font-size:20px;margin:0 0 10px}
+p{margin:0 0 10px}
+.top{display:flex;align-items:center;gap:10px;padding:18px 0 14px}
+.top b{font-size:17px}.top small{display:block;color:var(--mute);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}
+.hero{background:var(--black);color:#fff;border:0}
+.hero .mute{color:#a9b8af}
+.big{font-size:clamp(40px,12vw,56px);font-weight:800;line-height:1;letter-spacing:-.02em}
+.unit{font-size:18px;font-weight:600;margin-left:4px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sp{justify-content:space-between}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.tile b{display:block;font-size:22px}.tile span{color:var(--mute);font-size:13px}
+.mute{color:var(--mute);font-size:14px}
+.bar{height:12px;background:#2a332e;border-radius:99px;overflow:hidden;margin:14px 0 8px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#14804a,#3ddc84);border-radius:99px;transition:width .6s}
+.fig{position:relative;height:200px}.fig svg{position:absolute;inset:0;width:100%;height:100%}
+button,.btn{font:inherit;font-weight:700;border:0;border-radius:14px;min-height:48px;padding:0 18px;cursor:pointer;background:var(--g);color:#fff}
+button.ghost{background:var(--g2);color:var(--gi)}
+button.line{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button.sm{min-height:40px;padding:0 12px;font-size:14px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #3ddc84;outline-offset:2px}
+button:disabled{opacity:.5}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 6px}
+input,select,textarea{width:100%;font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-height:48px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:600;min-height:44px}
+.seg button.on{background:var(--g);color:#fff;border-color:var(--g)}
+.note{background:var(--wbg);color:var(--warn);border-radius:14px;padding:12px 14px;font-size:14px;margin:10px 0}
+.tip{background:var(--g2);color:var(--gi);border-radius:14px;padding:12px 14px;font-size:15px}
+.err{color:#d9443a;font-size:14px;margin-top:8px;min-height:1em}
+.list{list-style:none;padding:0;margin:0}
+.list li{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.list li:last-child{border:0}
+details{border-top:1px solid var(--line);padding:10px 0}
+summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:8px}
+summary::-webkit-details-marker{display:none}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--g2);color:var(--gi);white-space:nowrap}
+.pill.p{background:#0e1411;color:#3ddc84}
+.chk{display:flex;gap:10px;align-items:center;padding:8px 0;font-size:15px}
+.chk input{width:22px;height:22px;min-height:0;accent-color:#14804a;flex:none}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.days button{min-height:52px;padding:0;font-size:12px;background:var(--bg);color:var(--ink);border:1px solid var(--line);line-height:1.2}
+.days button.on{background:var(--g);color:#fff;border-color:var(--g)}
+.days button.ok::after{content:"✓";display:block;color:#3ddc84}
+.chat{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.msg{max-width:88%;padding:12px 14px;border-radius:18px;white-space:pre-wrap;font-size:15px}
+.me{align-self:flex-end;background:var(--g);color:#fff;border-bottom-right-radius:6px}
+.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.chips button{flex:none;min-height:40px;font-size:14px;font-weight:600}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav div{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%;max-width:560px}
+nav button{background:none;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;min-height:56px;padding:4px 0}
+nav button.on{color:var(--gi)}
+nav svg{width:24px;height:24px}
+.lock{position:relative;opacity:.55;pointer-events:none}
+.glass{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}
+.glass i{width:18px;height:24px;border:2px solid var(--g);border-radius:3px 3px 6px 6px}
+.glass i.f{background:#3ddc84;border-color:#3ddc84}
+.fade{animation:f .35s ease}@keyframes f{from{opacity:0;transform:translateY(6px)}}
+@media(prefers-reduced-motion:reduce){.fade{animation:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="14" fill="#0e1411"/><circle cx="19" cy="13" r="5" fill="#3ddc84"/><path d="M11 38c0-9 3-17 8-17s8 8 8 17" fill="none" stroke="#3ddc84" stroke-width="4" stroke-linecap="round"/><path d="M30 18h6m-6 8h8m-8 8h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="37" cy="18" r="2.4" fill="#fff"/><circle cx="39" cy="26" r="2.4" fill="#fff"/><circle cx="36" cy="34" r="2.4" fill="#fff"/></symbol>
+</svg>
+<main id="app"></main>
+<nav id="nav" hidden><div>
+<button data-t="accueil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+<button data-t="repas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="7"/><path d="M12 3v3M4 3v6M2 3v4a2 2 0 0 0 4 0V3M20 3v18"/></svg>Repas</button>
+<button data-t="sport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"/></svg>Sport</button>
+<button data-t="coach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H9l-5 4z"/><path d="M9 10h.01M12 10h.01M15 10h.01"/></svg>Coach IA</button>
+<button data-t="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profil</button>
+</div></nav>
+
+<script>
+{
+const D={p:null,w:[],water:{},wk:{},hab:{},shop:{},prem:false,chat:[],ai:{},rem:{eau:true,sport:true,pesee:true},lvl:null,ts:0,notif:''};
+const clone=o=>JSON.parse(JSON.stringify(o));
+let S=clone(D),tab='accueil',repasDay=null,sportDay=null,ask=null,editing=false,swReg=null;
+try{const r=localStorage.getItem('cwl-v1');if(r)S=Object.assign(clone(D),JSON.parse(r))}catch(e){}
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today=()=>new Date().toLocaleDateString('sv');
+const dow=()=>(new Date().getDay()+6)%7;
+const JOURS=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+const fmt=n=>(Math.round(n*10)/10).toLocaleString('fr-FR');
+
+function save(){S.ts=Date.now();try{localStorage.setItem('cwl-v1',JSON.stringify(S))}catch(e){}}
+
+/* ---------- Calculs santé (prudents) ---------- */
+const ACT={sed:['Sédentaire',1.2],leg:['Peu actif',1.375],mod:['Actif',1.55],tre:['Très actif',1.725]};
+const PREF={cla:'Classique',veg:'Végétarien',hal:'Halal',lac:'Sans lactose'};
+function cur(){return S.w.length?S.w[S.w.length-1].v:S.p.w0}
+function calc(){const p=S.p,w=cur(),h=p.h/100;
+  const bmr=10*w+6.25*p.h-5*p.age+(p.sex==='h'?5:-161);
+  const tdee=bmr*ACT[p.act][1],floor=p.sex==='h'?1500:1200;
+  const lose=w>p.goal;const kcal=Math.round((lose?Math.max(tdee-400,floor):tdee)/10)*10;
+  const done=Math.max(0,p.w0-w),total=Math.max(.1,p.w0-p.goal);
+  return{bmi:w/(h*h),kcal,water:Math.max(6,Math.round(w*0.033/0.25)),pct:Math.min(100,Math.round(done/total*100)),
+    done,left:Math.max(0,w-p.goal),weeks:Math.ceil(Math.max(0,w-p.goal)/0.5),minW:Math.ceil(18.5*h*h)}}
+function lvl(){return S.lvl??({sed:0,leg:0,mod:1,tre:2}[S.p.act])}
+
+/* ---------- Données repas ---------- */
+const M={
+pd:[{n:'Flocons d\'avoine, fruits rouges et amandes',k:350,v:1,l:0,i:['40 g flocons d\'avoine','200 ml lait demi-écrémé (ou boisson végétale)','80 g fruits rouges','10 amandes'],r:'Faire chauffer l\'avoine 3 min dans le lait, ajouter fruits et amandes.'},
+ {n:'Tartines complètes, œuf et avocat',k:380,v:1,l:1,i:['2 tranches pain complet','1 œuf','1/2 avocat','1 tomate'],r:'Toaster le pain, écraser l\'avocat, ajouter l\'œuf poché ou dur et la tomate.'},
+ {n:'Yaourt grec, kiwi et graines',k:300,v:1,l:0,i:['150 g yaourt grec nature','1 kiwi','1 c. à soupe graines de chia','1 c. à café miel'],r:'Mélanger le yaourt et les graines, ajouter le kiwi coupé.'},
+ {n:'Smoothie banane, épinards et beurre de cacahuète',k:330,v:1,l:1,i:['1 banane','1 poignée d\'épinards','250 ml boisson d\'amande','1 c. à soupe beurre de cacahuète'],r:'Tout mixer 1 minute.'}],
+dj:[{n:'Bowl poulet, riz complet et légumes',k:520,v:0,l:1,i:['120 g blanc de poulet','60 g riz complet (cru)','1 courgette','1 poivron','1 c. à soupe huile d\'olive'],r:'Cuire le riz. Poêler poulet et légumes 10 min avec l\'huile et des épices.'},
+ {n:'Salade de lentilles, feta et crudités',k:480,v:1,l:0,i:['80 g lentilles (crues)','40 g feta','1 carotte','1/2 concombre','Vinaigrette légère'],r:'Cuire les lentilles 20 min, refroidir, mélanger avec les crudités et la feta.'},
+ {n:'Pavé de saumon, patate douce et haricots verts',k:540,v:0,l:1,i:['120 g saumon','1 patate douce (150 g)','150 g haricots verts','Citron'],r:'Rôtir la patate douce 25 min à 200 °C, cuire le saumon 12 min, haricots à la vapeur.'},
+ {n:'Chili sin carne',k:500,v:1,l:1,i:['120 g haricots rouges cuits','100 g maïs','1 boîte de tomates concassées','1 oignon','60 g riz complet (cru)'],r:'Faire revenir l\'oignon, ajouter tomates, haricots, maïs et épices, mijoter 15 min. Servir avec le riz.'},
+ {n:'Wrap complet à la dinde et crudités',k:450,v:0,l:1,i:['1 grande tortilla complète','100 g blanc de dinde','Salade, tomate, carotte râpée','1 c. à soupe houmous'],r:'Tartiner le houmous, garnir, rouler.'}],
+dd:[{n:'Soupe de légumes et omelette aux herbes',k:420,v:1,l:1,i:['2 œufs','300 g légumes pour soupe','Herbes fraîches','1 tranche pain complet'],r:'Cuire et mixer les légumes. Omelette 3 min à la poêle.'},
+ {n:'Poêlée de crevettes, brocoli et quinoa',k:450,v:0,l:1,i:['120 g crevettes','150 g brocoli','50 g quinoa (cru)','Ail, gingembre'],r:'Cuire le quinoa 12 min. Sauter crevettes et brocoli 6 min avec ail et gingembre.'},
+ {n:'Curry de pois chiches et épinards',k:480,v:1,l:1,i:['150 g pois chiches cuits','100 g épinards','100 ml lait de coco léger','1 oignon','Curry en poudre'],r:'Faire revenir l\'oignon et le curry, ajouter le reste, mijoter 10 min.'},
+ {n:'Filet de cabillaud, purée de chou-fleur',k:400,v:0,l:0,i:['150 g cabillaud','300 g chou-fleur','1 c. à soupe crème légère','Persil'],r:'Cuire le chou-fleur 15 min, mixer avec la crème. Cabillaud 10 min au four.'},
+ {n:'Tortilla espagnole légère et salade verte',k:430,v:1,l:1,i:['3 œufs','1 pomme de terre moyenne','1 oignon','Salade verte'],r:'Cuire pomme de terre et oignon en dés, ajouter les œufs battus, cuire à feu doux 10 min.'}],
+co:[{n:'Pomme et 15 g d\'amandes',k:170,v:1,l:1,i:['1 pomme','15 g amandes']},
+ {n:'Fromage blanc et cannelle',k:120,v:1,l:0,i:['150 g fromage blanc 0 %','Cannelle']},
+ {n:'Bâtonnets de carotte et houmous',k:150,v:1,l:1,i:['2 carottes','2 c. à soupe houmous']}]};
+function pick(arr,day){const p=S.p.pref;let a=arr.filter(m=>(p!=='veg'||m.v)&&(p!=='lac'||m.l));if(!a.length)a=arr;return a[day%a.length]}
+function dayMeals(d){return[['Petit-déjeuner',pick(M.pd,d)],['Déjeuner',pick(M.dj,d+1)],['Collation',pick(M.co,d)],['Dîner',pick(M.dd,d+2)]]}
+
+/* ---------- Données sport ---------- */
+const EX={
+A:[['Squats','3 × {10|15|20}','Pieds largeur d\'épaules, dos droit, descends comme pour t\'asseoir.'],['Pompes','3 × {6 sur les genoux|10|15}','Mains sous les épaules, corps aligné.'],['Fentes alternées','3 × {8|12|16} par jambe','Grand pas en avant, genou arrière vers le sol.'],['Gainage planche','3 × {20|35|50} s','Coudes sous les épaules, ventre serré, ne creuse pas le dos.'],['Pont fessier','3 × {12|15|20}','Allongé, pousse le bassin vers le haut, serre les fessiers.']],
+B:[['Montées de genoux','4 × {20|30|40} s','Sur place, à ton rythme, respire régulièrement.'],['Chaise contre un mur','3 × {20|35|50} s','Dos collé au mur, cuisses parallèles au sol.'],['Superman','3 × {8|12|15}','Allongé sur le ventre, lève bras et jambes 2 s.'],['Mountain climbers','3 × {15|25|35} s','En position de pompe, ramène les genoux vers la poitrine.'],['Crunchs','3 × {10|15|20}','Décolle seulement les épaules, ne tire pas sur la nuque.']],
+M:[['Marche rapide','{20|30|40} min','Rythme où tu peux parler mais pas chanter.']],
+R:[['Étirements doux','{10|15|20} min','Jambes, dos, épaules, 30 s par position, sans douleur.']],
+Z:[['Repos complet','—','Le repos fait partie du programme : le corps récupère.']]};
+const PROG=[['Renforcement A','A'],['Marche rapide','M'],['Repos actif','R'],['Renforcement B','B'],['Marche rapide','M'],['Renforcement A','A'],['Repos','Z']];
+const LV=['Débutant','Intermédiaire','Avancé'];
+const rep=s=>s.replace(/\{([^}]+)\}/,(_,a)=>a.split('|')[lvl()]);
+
+const MOTIV=['Chaque petit pas compte. Aujourd\'hui, vise juste un peu mieux qu\'hier.','La régularité bat la perfection : un écart n\'annule pas tes efforts.','Bois un grand verre d\'eau maintenant, ton corps te dira merci.','Une marche de 10 minutes après le repas, c\'est déjà un vrai progrès.','Sois fier·e d\'avoir pris soin de toi aujourd\'hui.','Ton objectif est un chemin, pas une course.','Dors bien ce soir : le sommeil aide aussi à mieux gérer l\'appétit.'];
+
+/* ---------- Rappels ---------- */
+function reminders(){if(!S.p)return[];const c=calc(),d=today(),wt=S.water[d]||0,ses=PROG[dow()],r=[];
+  if(S.rem.eau&&wt<c.water)r.push(`Hydratation : ${wt}/${c.water} verres aujourd'hui.`);
+  if(S.rem.sport&&!S.wk[d]&&ses[1]!=='Z')r.push(`Séance du jour : ${ses[0]}.`);
+  if(S.rem.pesee&&(!S.w.length||S.w[S.w.length-1].d!==d)&&dow()===0)r.push('C\'est lundi : pense à te peser le matin à jeun.');
+  return r}
+const notifOK=()=>'Notification' in window&&Notification.permission==='granted';
+function notify(body,tag){if(!notifOK())return;const o={body,icon:'icon-192.png',badge:'badge-96.png',tag:tag||'rappel'};
+  if(swReg)swReg.showNotification('Coach WeightLoss AI',o);else try{new Notification('Coach WeightLoss AI',o)}catch(e){}}
+/* Une notification de rappel par jour, à l'ouverture de l'appli */
+function dailyNotif(){const r=reminders();if(!r.length||!notifOK()||S.notif===today())return;S.notif=today();save();notify(r.join('\n'),'rappel-jour')}
+async function enableNotif(){const info=$('#ninfo');
+  if(!('Notification' in window)){if(info)info.textContent='Ce navigateur ne gère pas les notifications. Utilise Chrome sur Android.';return}
+  const p=await Notification.requestPermission();
+  if(p!=='granted'){if(info)info.textContent='Notifications refusées. Tu peux les autoriser dans les paramètres Android > Applications > Chrome > Notifications.';return}
+  notify('Les notifications sont activées ✓ Tu recevras tes rappels ici.','test');
+  try{if(swReg&&'periodicSync' in swReg){const st=await navigator.permissions.query({name:'periodic-background-sync'});
+    if(st.state==='granted')await swReg.periodicSync.register('rappels',{minInterval:12*60*60*1000})}}catch(e){}
+  render()}
+
+/* ---------- Rendu ---------- */
+function render(){
+  const app=$('#app');
+  if(!S.p||editing){$('#nav').hidden=!S.p;app.innerHTML=onboarding();bindForm();return}
+  $('#nav').hidden=false;
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab));
+  app.innerHTML='<div class="fade">'+({accueil,repas,sport,coach,profil}[tab])()+'</div>';
+  if(tab==='accueil')drawChart();
+  if(tab==='coach'){const c=$('#chatEnd');if(c)c.scrollIntoView({block:'end'})}
+}
+function head(t,s){return`<div class="top"><svg width="44" height="44"><use href="#logo"/></svg><div><b>${t}</b><small>${s}</small></div></div>`}
+
+function onboarding(){const p=S.p||{};
+  const seg=(k,o,v)=>`<div class="seg" data-k="${k}">${Object.entries(o).map(([a,b])=>`<button type="button" data-v="${a}" class="${v===a?'on':''}">${esc(Array.isArray(b)?b[0]:b)}</button>`).join('')}</div>`;
+  return`<div class="fade">${S.p?head('Modifier mon profil','Tes réponses ajustent tes conseils'):`
+  <div style="padding:34px 0 14px;text-align:center"><svg width="84" height="84"><use href="#logo"/></svg>
+  <h1 style="margin-top:14px">Coach WeightLoss AI</h1><p class="mute">Ton coach minceur personnel, bienveillant et intelligent.</p></div>`}
+  <form class="card" id="f" novalidate>
+  <h2>${S.p?'Mon profil':'Créons ton profil'}</h2>
+  <label for="nm">Prénom</label><input id="nm" autocomplete="given-name" value="${esc(p.name)}" maxlength="30">
+  <label>Sexe (pour le calcul des besoins)</label>${seg('sex',{f:'Femme',h:'Homme'},p.sex)}
+  <div class="grid"><div><label for="age">Âge</label><input id="age" type="number" inputmode="numeric" value="${esc(p.age)}" placeholder="30"></div>
+  <div><label for="ht">Taille (cm)</label><input id="ht" type="number" inputmode="numeric" value="${esc(p.h)}" placeholder="170"></div>
+  <div><label for="w0">Poids actuel (kg)</label><input id="w0" type="number" step="0.1" inputmode="decimal" value="${esc(S.p?cur():'')}" placeholder="80"></div>
+  <div><label for="gl">Objectif (kg)</label><input id="gl" type="number" step="0.1" inputmode="decimal" value="${esc(p.goal)}" placeholder="72"></div></div>
+  <label>Activité physique</label>${seg('act',ACT,p.act)}
+  <label>Préférences alimentaires</label>${seg('pref',PREF,p.pref)}
+  <div class="err" id="er"></div>
+  <button style="width:100%;margin-top:6px">${S.p?'Enregistrer':'Commencer mon programme'}</button>
+  ${S.p?'<button type="button" class="line" id="cancel" style="width:100%;margin-top:8px">Annuler</button>':''}
+  <p class="mute" style="margin-top:14px">Cette application donne des conseils généraux et ne remplace pas un médecin ou un diététicien. Réservée aux 18 ans et plus. Si tu es enceinte, allaites ou as une maladie, parles-en d'abord à un professionnel de santé.</p>
+  <p class="mute">Une application ASI.HÉLIOS · contact.heliosasi@gmail.com</p>
+  </form></div>`}
+function bindForm(){const sel={sex:S.p?.sex,act:S.p?.act,pref:S.p?.pref||'cla'};
+  document.querySelectorAll('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+    sel[g.dataset.k]=b.dataset.v;g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))}));
+  document.querySelector('.seg[data-k=pref] button[data-v="'+sel.pref+'"]')?.classList.add('on');
+  $('#cancel')?.addEventListener('click',()=>{editing=false;render()});
+  $('#f').addEventListener('submit',e=>{e.preventDefault();const er=$('#er');
+    const name=$('#nm').value.trim(),age=+$('#age').value,h=+$('#ht').value,w=+$('#w0').value,goal=+$('#gl').value;
+    if(!name)return er.textContent='Indique ton prénom.';
+    if(!sel.sex)return er.textContent='Choisis ton sexe.';
+    if(!(age>=18&&age<=100))return er.textContent=age&&age<18?'Cette application est réservée aux adultes (18 ans et plus).':'Indique un âge valide.';
+    if(!(h>=120&&h<=230))return er.textContent='Indique ta taille en centimètres (ex. 170).';
+    if(!(w>=35&&w<=300))return er.textContent='Indique un poids valide en kg.';
+    if(!(goal>=35&&goal<=300))return er.textContent='Indique ton objectif de poids en kg.';
+    const minW=Math.ceil(18.5*(h/100)**2);
+    if(goal<minW)return er.textContent=`Pour rester en bonne santé, ton objectif ne devrait pas être sous ${minW} kg (IMC 18,5). Choisis un objectif plus doux.`;
+    if(!sel.act)return er.textContent='Choisis ton niveau d\'activité.';
+    const first=!S.p;
+    S.p={name,sex:sel.sex,age,h,goal,act:sel.act,pref:sel.pref,w0:first?w:S.p.w0,start:first?today():S.p.start};
+    if(first||w!==cur())logW(w,true);
+    editing=false;save();tab='accueil';render();window.scrollTo(0,0)})}
+
+function logW(v,silent){const d=today();S.w=S.w.filter(x=>x.d!==d);S.w.push({d,v});S.w.sort((a,b)=>a.d<b.d?-1:1);if(!silent){save();render()}}
+
+function accueil(){const c=calc(),p=S.p,d=today(),wt=S.water[d]||0,done=S.wk[d],ses=PROG[dow()],rem=reminders();
+  return head('Bonjour '+esc(p.name),new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}))+`
+  <section class="card hero">
+   <div class="row sp"><span class="mute">Poids actuel</span><span class="pill p">${S.prem?'Premium':'Gratuit'}</span></div>
+   <div class="big">${fmt(cur())}<span class="unit">kg</span></div>
+   <div class="bar" role="progressbar" aria-valuenow="${c.pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${c.pct}%"></i></div>
+   <div class="row sp"><span>${c.pct} % de l'objectif</span><span class="mute">Objectif ${fmt(p.goal)} kg</span></div>
+   <p class="mute" style="margin-top:8px">${c.left>0?`${fmt(c.done)} kg perdus · encore ${fmt(c.left)} kg. À un rythme sain (≈ 0,5 kg/semaine), compte environ ${c.weeks} semaines — c'est une estimation, pas une garantie.`:'Objectif atteint ! Pense maintenant à stabiliser ton poids.'}</p>
+  </section>
+  <section class="card"><div class="row sp"><h2>Ma courbe</h2><span class="mute">${S.w.length} pesée${S.w.length>1?'s':''}</span></div>
+   <div class="fig"><svg id="ch" role="img" aria-label="Évolution du poids"></svg></div>
+   <form id="wf" class="row" style="margin-top:12px"><input id="wv" type="number" step="0.1" inputmode="decimal" placeholder="Poids du jour (kg)" style="flex:1" aria-label="Poids du jour"><button>Ajouter</button></form>
+   <div class="err" id="we"></div></section>
+  ${rem.length?`<section class="note" role="status"><b>Rappels</b><br>${rem.map(esc).join('<br>')}</section>`:''}
+  <div class="grid" style="margin-bottom:14px">
+   <div class="tile"><span>Calories conseillées</span><b>${c.kcal.toLocaleString('fr-FR')}</b><span>kcal / jour</span></div>
+   <div class="tile"><span>IMC</span><b>${fmt(c.bmi)}</b><span>${c.bmi<18.5?'Insuffisance':c.bmi<25?'Normal':c.bmi<30?'Surpoids':'Obésité'}</span></div>
+   <div class="tile"><span>Séance du jour</span><b style="font-size:17px">${esc(ses[0])}</b><span>${done?'✓ Faite':'À faire'}</span></div>
+   <div class="tile"><span>Objectif atteint</span><b>${c.pct} %</b><span>depuis le ${new Date(p.start+'T12:00').toLocaleDateString('fr-FR')}</span></div></div>
+  <section class="card"><div class="row sp"><h2>Hydratation</h2><span class="mute">${wt}/${c.water} verres</span></div>
+   <div class="glass">${Array.from({length:c.water},(_,i)=>`<i class="${i<wt?'f':''}"></i>`).join('')}</div>
+   <div class="row"><button class="ghost sm" data-wa="-1" aria-label="Retirer un verre">− 1 verre</button><button class="sm" data-wa="1">+ 1 verre (25 cl)</button></div></section>
+  <section class="tip" style="margin-bottom:14px"><b>Le mot du coach</b><br>${esc(MOTIV[new Date().getDate()%MOTIV.length])}</section>
+  <section class="card"><h2>Historique</h2><ul class="list">${S.w.slice(-8).reverse().map(x=>`<li><span>${new Date(x.d+'T12:00').toLocaleDateString('fr-FR')}</span><span><b>${fmt(x.v)} kg</b> <button class="line sm" data-del="${esc(x.d)}" aria-label="Supprimer">✕</button></span></li>`).join('')||'<li class="mute">Aucune pesée.</li>'}</ul></section>`}
+
+function drawChart(){const s=$('#ch');if(!s)return;const draw=()=>{const W=s.clientWidth,H=s.clientHeight;if(!W)return;
+  const pts=S.w.slice(-30),g=S.p.goal,vals=pts.map(x=>x.v).concat(g),lo=Math.min(...vals)-1,hi=Math.max(...vals)+1,pl=34,pr=10,pt=10,pb=22;
+  const X=i=>pl+(pts.length<2?(W-pl-pr)/2:i*(W-pl-pr)/(pts.length-1)),Y=v=>pt+(hi-v)/(hi-lo)*(H-pt-pb);
+  let o=`<line x1="${pl}" x2="${W-pr}" y1="${Y(g)}" y2="${Y(g)}" stroke="#3ddc84" stroke-dasharray="5 5"/><text x="${W-pr}" y="${Y(g)-6}" text-anchor="end" font-size="12" fill="currentColor" opacity=".7">Objectif ${fmt(g)}</text>`;
+  [hi-1,lo+1].forEach(v=>o+=`<text x="0" y="${Y(v)+4}" font-size="12" fill="currentColor" opacity=".6">${Math.round(v)}</text>`);
+  if(pts.length>1){const d=pts.map((p,i)=>`${i?'L':'M'}${X(i)},${Y(p.v)}`).join('');
+    o+=`<path d="${d}L${X(pts.length-1)},${H-pb}L${X(0)},${H-pb}Z" fill="#14804a" opacity=".12"/><path d="${d}" fill="none" stroke="#14804a" stroke-width="3" stroke-linejoin="round"/>`}
+  pts.forEach((p,i)=>o+=`<circle cx="${X(i)}" cy="${Y(p.v)}" r="4" fill="#14804a"/>`);
+  if(pts.length){o+=`<text x="${pl}" y="${H-4}" font-size="12" fill="currentColor" opacity=".6">${new Date(pts[0].d+'T12:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short'})}</text>`;
+    if(pts.length>1)o+=`<text x="${W-pr}" y="${H-4}" text-anchor="end" font-size="12" fill="currentColor" opacity=".6">${new Date(pts[pts.length-1].d+'T12:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short'})}</text>`}
+  s.innerHTML=o};draw();if(window._ro)window._ro.disconnect();window._ro=new ResizeObserver(draw);window._ro.observe(s)}
+
+function repas(){const c=calc(),d=repasDay??dow(),meals=dayMeals(d),k=meals.reduce((a,m)=>a+m[1].k,0),key='j'+d;
+  const items=[...new Set(meals.flatMap(m=>m[1].i))],shop=S.shop[key]||[],hab=S.hab[today()]||{};
+  const HAB=[['leg','J\'ai mangé des légumes à 2 repas'],['eau','J\'ai préféré l\'eau aux boissons sucrées'],['lent','J\'ai mangé lentement, sans écran'],['gri','Pas de grignotage entre les repas']];
+  return head('Programme nutritionnel',`${c.kcal.toLocaleString('fr-FR')} kcal/jour conseillées · ${PREF[S.p.pref]}`)+`
+  <section class="card"><h2>Jour du menu</h2><div class="days">${JOURS.map((j,i)=>`<button data-rd="${i}" class="${i===d?'on':''}" ${!S.prem&&i!==dow()?'aria-disabled="true"':''}>${j}${!S.prem&&i!==dow()?'<br>🔒':''}</button>`).join('')}</div>
+  ${S.prem?'':'<p class="mute" style="margin-top:10px">Version gratuite : menu du jour. Le plan sur 7 jours est inclus dans Premium.</p>'}</section>
+  <section class="card"><div class="row sp"><h2>Menu de ${['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'][d]}</h2><span class="pill">≈ ${k} kcal</span></div>
+  ${meals.map(([t,m])=>`<details><summary><span><span class="mute">${t}</span><br>${esc(m.n)}</span><span class="pill">${m.k} kcal</span></summary>
+   <p style="margin-top:8px"><b>Ingrédients (1 pers.)</b></p><ul>${m.i.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${m.r?`<p><b>Préparation</b> — ${esc(m.r)}</p>`:''}</details>`).join('')}
+  ${k<c.kcal-150?`<p class="mute" style="margin-top:10px">Il te reste environ ${c.kcal-k} kcal : ajoute un fruit, un laitage ou une portion de féculents si tu as faim. Ne descends pas sous tes besoins conseillés.</p>`:''}
+  ${S.p.pref==='hal'?'<p class="mute">Viandes à choisir certifiées halal. Aucun porc ni alcool dans les recettes.</p>':''}</section>
+  <section class="card"><div class="row sp"><h2>Liste de courses</h2><span class="mute">${shop.length}/${items.length}</span></div>
+  ${items.map((x,i)=>`<label class="chk"><input type="checkbox" data-sh="${i}" ${shop.includes(x)?'checked':''}>${esc(x)}</label>`).join('')}</section>
+  <section class="card"><h2>Mes habitudes aujourd'hui</h2>
+  ${HAB.map(([id,t])=>`<label class="chk"><input type="checkbox" data-hb="${id}" ${hab[id]?'checked':''}>${t}</label>`).join('')}
+  <p class="mute">${Object.values(hab).filter(Boolean).length}/4 bonnes habitudes · ${habStreak()} jour(s) avec au moins 3 habitudes cette semaine</p></section>
+  <p class="mute">Les calories sont des estimations. Pour un suivi médical ou un régime spécifique, consulte un diététicien.</p>`}
+function habStreak(){let n=0;for(let i=0;i<7;i++){const d=new Date(Date.now()-i*864e5).toLocaleDateString('sv');if(Object.values(S.hab[d]||{}).filter(Boolean).length>=3)n++}return n}
+
+function sport(){const d=sportDay??dow(),ses=PROG[d],L=lvl(),lock=!S.prem&&d!==dow();
+  const wk=JOURS.map((j,i)=>{const dt=new Date(Date.now()+(i-dow())*864e5).toLocaleDateString('sv');return{j,i,ok:!!S.wk[dt]}});
+  const doneN=wk.filter(x=>x.ok).length;
+  return head('Programme sportif',`Niveau ${LV[L]} · à la maison, sans matériel`)+`
+  <section class="card"><h2>Mon niveau</h2><div class="seg" id="lv">${LV.map((n,i)=>`<button data-l="${i}" class="${i===L?'on':''}">${n}</button>`).join('')}</div></section>
+  <section class="card"><div class="row sp"><h2>Semaine</h2><span class="mute">${doneN} séance(s) faite(s)</span></div>
+  <div class="days">${wk.map(x=>`<button data-sd="${x.i}" class="${x.i===d?'on':''} ${x.ok?'ok':''}">${x.j}</button>`).join('')}</div></section>
+  <section class="card ${lock?'lock':''}"><div class="row sp"><h2>${esc(ses[0])}</h2><span class="pill">${JOURS[d]}</span></div>
+  ${EX[ses[1]].map(([n,r,t])=>`<details><summary><span>${esc(n)}</span><span class="pill">${esc(rep(r))}</span></summary><p class="mute" style="margin-top:6px">${esc(t)}</p></details>`).join('')}
+  ${ses[1]!=='Z'&&ses[1]!=='M'&&ses[1]!=='R'?'<p class="mute" style="margin-top:8px">Échauffe-toi 5 min avant. Repos 45 à 60 s entre les séries.</p>':''}
+  ${d===dow()&&ses[1]!=='Z'?`<button style="width:100%;margin-top:10px" id="done" class="${S.wk[today()]?'ghost':''}">${S.wk[today()]?'✓ Séance faite — annuler':'J\'ai fait ma séance'}</button>`:''}</section>
+  ${lock?'<p class="note">Le programme détaillé des autres jours est inclus dans Premium. Ta séance du jour reste gratuite.</p>':''}
+  <p class="mute">Arrête-toi en cas de douleur, d'essoufflement inhabituel ou de malaise. Avec un problème de santé (cœur, articulations, tension), demande d'abord l'avis de ton médecin.</p>`}
+
+function coach(){const n=S.ai[today()]||0,lim=S.prem?50:5;
+  const q=['Que manger ce soir avec peu de temps ?','Comment éviter le grignotage ?','Je n\'ai pas perdu cette semaine, normal ?','Un exercice rapide pour aujourd\'hui ?'];
+  return head('Coach IA','Disponible 24 h/24 · conseils généraux')+`
+  <div class="chat">${S.chat.length?'':`<div class="msg ai">Bonjour ${esc(S.p.name)} ! Je suis ton coach. Pose-moi tes questions sur l'alimentation, le sport ou la motivation. Je donne des conseils généraux et ne remplace pas un professionnel de santé.</div>`}
+  ${S.chat.map(m=>`<div class="msg ${m.r==='u'?'me':'ai'}">${esc(m.t)}</div>`).join('')}<div id="chatEnd"></div></div>
+  <div class="chips">${q.map(x=>`<button class="ghost" data-q="${esc(x)}">${esc(x)}</button>`).join('')}</div>
+  <form id="cf" class="row" style="margin-top:8px"><textarea id="cq" rows="2" maxlength="600" placeholder="Écris ta question…" style="flex:1" aria-label="Ta question"></textarea><button id="cs" ${ask?'disabled':''}>Envoyer</button></form>
+  <p class="mute" style="margin-top:8px" id="cinfo">${n}/${lim} messages aujourd'hui${S.prem?'':' · illimité ou presque avec Premium'}</p>
+  ${S.chat.length?'<button class="line sm" id="clr">Effacer la conversation</button>':''}`}
+
+async function sendQ(text){text=text.trim();if(!text||ask)return;const d=today(),lim=S.prem?50:5;
+  if((S.ai[d]||0)>=lim){S.chat.push({r:'u',t:text},{r:'a',t:'Tu as atteint la limite de messages gratuits pour aujourd\'hui. Reviens demain, ou passe à Premium pour un coaching avancé.'});save();render();return}
+  S.chat.push({r:'u',t:text},{r:'a',t:'…'});render();
+  const out=S.chat[S.chat.length-1],c=calc(),p=S.p;
+  let sample=null;try{sample=window.claude?await window.claude.use('sample'):null}catch(e){}
+  if(!sample){out.t='Le coach IA arrive bientôt dans cette version installée : il sera branché à la prochaine mise à jour. En attendant, tes menus, ton sport et ton suivi fonctionnent normalement.';save();render();return}
+  const hist=S.chat.slice(-12,-2).map(m=>(m.r==='u'?'Utilisateur: ':'Coach: ')+m.t).join('\n');
+  const prompt=`Tu es "Coach WeightLoss AI", un coach minceur bienveillant qui parle français, tutoie l'utilisateur et répond en 120 mots maximum, simplement, sans markdown.
+Règles de sécurité obligatoires : ne promets jamais de perte de poids garantie ; ne propose jamais de régime extrême, de jeûne prolongé, de produit amincissant ou moins de ${p.sex==='h'?1500:1200} kcal/jour ; vise au plus 0,5 à 1 kg par semaine ; tu ne remplaces pas un médecin ou un diététicien et tu les recommandes en cas de maladie, médicament, grossesse, douleur ou symptôme ; si l'utilisateur évoque des comportements alimentaires inquiétants (se faire vomir, ne plus manger, culpabilité intense), réponds avec douceur et encourage-le à en parler à un médecin ou à un proche.
+Profil : ${p.name}, ${p.age} ans, ${p.sex==='h'?'homme':'femme'}, ${p.h} cm, poids actuel ${fmt(cur())} kg, objectif ${fmt(p.goal)} kg, activité ${ACT[p.act][0]}, alimentation ${PREF[p.pref]}, environ ${c.kcal} kcal/jour conseillées, niveau sport ${LV[lvl()]}.
+${hist?'Conversation récente :\n'+hist+'\n':''}Nouvelle question de l'utilisateur : ${text}`;
+  ask=new AbortController();
+  try{const r=await sample(prompt,{cache:false,signal:ask.signal,modelTier:'quick',onText:({text:t})=>{out.t=t;const el=document.querySelectorAll('.msg.ai');if(el.length)el[el.length-1].textContent=t}});
+    out.t=(r&&r.text)||out.t;S.ai[d]=(S.ai[d]||0)+1}
+  catch(e){out.t=e&&e.code==='rate_limited'?'Trop de questions en peu de temps, réessaie dans une minute.':'Désolé, je n\'ai pas pu répondre. Réessaie dans un instant.'}
+  ask=null;S.chat=S.chat.slice(-30);save();render()}
+
+function profil(){const p=S.p,c=calc(),nOn=notifOK();
+  return head('Mon profil',esc(p.name))+`
+  <section class="card"><ul class="list">
+   <li><span>Âge</span><b>${p.age} ans</b></li><li><span>Taille</span><b>${p.h} cm</b></li>
+   <li><span>Poids de départ</span><b>${fmt(p.w0)} kg</b></li><li><span>Objectif</span><b>${fmt(p.goal)} kg</b></li>
+   <li><span>Activité</span><b>${ACT[p.act][0]}</b></li><li><span>Alimentation</span><b>${PREF[p.pref]}</b></li>
+   <li><span>Hydratation conseillée</span><b>${c.water} verres</b></li></ul>
+   <button class="ghost" style="width:100%;margin-top:10px" id="edit">Modifier mon profil</button></section>
+  <section class="card"><h2>Rappels</h2>
+   ${[['eau','Rappels d\'hydratation'],['sport','Rappels d\'entraînement'],['pesee','Rappel de pesée hebdomadaire']].map(([k,t])=>`<label class="chk"><input type="checkbox" data-rm="${k}" ${S.rem[k]?'checked':''}>${t}</label>`).join('')}
+   <button class="${nOn?'ghost':''}" id="notif" style="width:100%;margin-top:10px">${nOn?'✓ Notifications activées — tester':'Activer les notifications'}</button>
+   <p class="mute" style="margin-top:8px" id="ninfo">${nOn?'Tu reçois un rappel par jour à l\'ouverture de l\'appli, et Chrome peut en envoyer en arrière-plan.':'Autorise les notifications pour recevoir tes rappels sur le téléphone.'}</p></section>
+  <section class="card" style="border-color:var(--g)"><div class="row sp"><h2>Premium</h2><span class="pill p">${S.prem?'Actif (démo)':'Gratuit'}</span></div>
+   <ul class="list"><li><span>Suivi du poids, tableau de bord</span><b>Gratuit</b></li><li><span>Menu et séance du jour</span><b>Gratuit</b></li><li><span>Coach IA</span><b>5 / jour</b></li>
+   <li><span>Plans repas et sport sur 7 jours</span><b>Premium</b></li><li><span>Coach IA avancé</span><b>Premium</b></li></ul>
+   <button style="width:100%;margin-top:10px" id="prem">${S.prem?'Revenir à la version gratuite':'Activer Premium (mode démo)'}</button>
+   <p class="mute" style="margin-top:8px">Mode démo : aucun paiement. Le vrai abonnement Stripe sera branché à une étape suivante.</p></section>
+  <section class="card"><h2>Mes données</h2><p class="mute">Données enregistrées sur cet appareil.</p>
+   <button class="line" id="reset" style="width:100%">Effacer toutes mes données</button><div id="rc"></div></section>
+  <section class="card"><h2>À propos</h2><ul class="list">
+   <li><span>Éditeur</span><b>ASI.HÉLIOS</b></li>
+   <li><span>Contact</span><b style="overflow-wrap:anywhere;text-align:right">contact.heliosasi@gmail.com</b></li></ul>
+   <p class="mute" style="margin-top:8px">Une question, un souci ou une suggestion ? Écris-nous à cette adresse.</p></section>
+  <p class="mute">Coach WeightLoss AI, une application ASI.HÉLIOS, donne des conseils généraux. Elle ne remplace pas un médecin ou un diététicien et ne garantit aucun résultat.</p>`}
+
+/* ---------- Événements ---------- */
+document.addEventListener('click',e=>{const b=e.target.closest('button,input[type=checkbox]');if(!b)return;const ds=b.dataset;
+  if(b.closest('nav')){tab=ds.t;repasDay=null;sportDay=null;render();window.scrollTo(0,0);return}
+  if(ds.wa){const d=today();S.water[d]=Math.max(0,(S.water[d]||0)+ +ds.wa);save();render()}
+  else if(ds.del){S.w=S.w.filter(x=>x.d!==ds.del);if(!S.w.length)S.w=[{d:today(),v:S.p.w0}];save();render()}
+  else if(ds.rd){if(!S.prem&&+ds.rd!==dow()){tab='profil';render();$('#prem')?.scrollIntoView({block:'center'});return}repasDay=+ds.rd;render()}
+  else if(ds.sd){sportDay=+ds.sd;render()}
+  else if(ds.l){S.lvl=+ds.l;save();render()}
+  else if(ds.sh!==undefined){const d=repasDay??dow(),items=[...new Set(dayMeals(d).flatMap(m=>m[1].i))],x=items[+ds.sh],k='j'+d,a=S.shop[k]||[];
+    S.shop[k]=b.checked?[...a,x]:a.filter(y=>y!==x);save()}
+  else if(ds.hb){const d=today();S.hab[d]=Object.assign({},S.hab[d],{[ds.hb]:b.checked});save();render()}
+  else if(ds.rm){S.rem[ds.rm]=b.checked;save()}
+  else if(ds.q)sendQ(ds.q);
+  else if(b.id==='notif'){if(notifOK())notify('Test réussi ✓ '+(reminders()[0]||'Tes rappels arriveront ici.'),'test');else enableNotif()}
+  else if(b.id==='done'){const d=today();if(S.wk[d])delete S.wk[d];else S.wk[d]=1;save();render()}
+  else if(b.id==='edit'){editing=true;render();window.scrollTo(0,0)}
+  else if(b.id==='prem'){S.prem=!S.prem;save();render()}
+  else if(b.id==='clr'){S.chat=[];save();render()}
+  else if(b.id==='reset'){$('#rc').innerHTML='<p class="note">Tout ton suivi sera supprimé. Confirmer ?</p><div class="row"><button id="rok">Oui, tout effacer</button><button class="line" id="rno">Annuler</button></div>'}
+  else if(b.id==='rno')$('#rc').innerHTML='';
+  else if(b.id==='rok'){S=clone(D);save();tab='accueil';render()}
+});
+document.addEventListener('submit',e=>{if(e.target.id==='wf'){e.preventDefault();const v=+$('#wv').value;
+    if(!(v>=35&&v<=300)){$('#we').textContent='Indique un poids valide en kg.';return}logW(v)}
+  if(e.target.id==='cf'){e.preventDefault();const t=$('#cq').value;sendQ(t)}});
+document.addEventListener('keydown',e=>{if(e.target.id==='cq'&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendQ(e.target.value)}});
+
+render();
+
+/* ---------- Application installable (service worker) ---------- */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).then(r=>{swReg=r;dailyNotif()}).catch(()=>{});
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')dailyNotif()});
+}
+</script>
+</body>
+</html>
